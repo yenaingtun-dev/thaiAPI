@@ -1,8 +1,8 @@
 const axios = require('axios');
 const fs = require('fs');
-
+   
 async function fetchData(url) {
-    try {
+    try { 
         const response = await axios.get(url);
         const newDataArray = response.data.result;
         updateFile(newDataArray);
