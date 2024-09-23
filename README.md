@@ -1,4 +1,4 @@
-# thaiAPI
+# ThaiAPI
 
 - clone the repository
 - npm install
