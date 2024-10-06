@@ -11,10 +11,6 @@ async function fetchData(url) {
     const response = await axios.get(url);
     const newDataArray = response.data.result;
     updateFile(newDataArray);
-    // values.map(value => {
-    //     saveToFile({ specificKey: value });
-    // });
-    // console.log(response.data);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -22,7 +18,6 @@ async function fetchData(url) {
 
 function updateFile(newDataArray) {
   const filePath = "data.json";
-  // Read the existing data from the file
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err && err.code !== "ENOENT") {
       console.error("Error reading file:", err);
@@ -32,7 +27,6 @@ function updateFile(newDataArray) {
     if (data) {
       existingData = JSON.parse(data);
     }
-    // Check for new data
     const newDataToAdd = newDataArray.filter(
       (newItem) =>
         !existingData.some(
@@ -67,9 +61,8 @@ app.get("/", (req, res) => {
       return;
     }
         try {
-            const data = JSON.parse(jsonData);
-            console.log("Data from JSON:", data);
-            res.render('index', { data });
+            const stockDatas = JSON.parse(jsonData);
+            res.render(__dirname + '/views/index.ejs', { stockDatas });
         } catch (parseError) {
             return res.status(500).send('Error parsing JSON data');
         }

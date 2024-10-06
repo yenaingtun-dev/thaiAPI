@@ -106,5 +106,41 @@
     "stock_date": "2024-10-02",
     "stock_datetime": "2024-10-02 16:30:01",
     "history_id": "1667642"
+  },
+  {
+    "set": "1439.86",
+    "value": "26640.80",
+    "open_time": "11:00:00",
+    "twod": "60",
+    "stock_date": "2024-10-04",
+    "stock_datetime": "2024-10-04 11:00:02",
+    "history_id": "1670655"
+  },
+  {
+    "set": "1444.79",
+    "value": "35064.99",
+    "open_time": "12:01:00",
+    "twod": "94",
+    "stock_date": "2024-10-04",
+    "stock_datetime": "2024-10-04 12:01:00",
+    "history_id": "1671068"
+  },
+  {
+    "set": "1445.49",
+    "value": "47554.24",
+    "open_time": "15:00:00",
+    "twod": "94",
+    "stock_date": "2024-10-04",
+    "stock_datetime": "2024-10-04 15:00:02",
+    "history_id": "1672016"
+  },
+  {
+    "set": "1444.25",
+    "value": "63959.04",
+    "open_time": "16:30:00",
+    "twod": "59",
+    "stock_date": "2024-10-04",
+    "stock_datetime": "2024-10-04 16:30:02",
+    "history_id": "1672457"
   }
 ]
