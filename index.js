@@ -16,6 +16,16 @@ async function fetchData(url) {
   }
 }
 
+async function fetchHistoryData(historyUrl) {
+  try {
+    const response = await axios.get(historyUrl);
+    const newDataArray = response.data;
+    updateHistorysFile(newDataArray);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
 function updateFile(newDataArray) {
   const filePath = "data.json";
   fs.readFile(filePath, "utf8", (err, data) => {
@@ -49,9 +59,47 @@ function updateFile(newDataArray) {
   });
 }
 
+function updateHistorysFile(newDataArray) {
+  const filePath = "history.json";
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err && err.code !== "ENOENT") {
+      console.error("Error reading file:", err);
+      return;
+    }
+    let existingData = [];
+    if (data) {
+      existingData = JSON.parse(data);
+    }
+    console.log(newDataArray);
+
+    const newDataToAdd = newDataArray.filter(
+      (newItem) =>
+        !existingData.some(
+          (existingItem) =>
+            JSON.stringify(existingItem) === JSON.stringify(newItem)
+        )
+    );
+    if (newDataToAdd.length > 0) {
+      existingData.push(...newDataToAdd);
+      fs.writeFile(filePath, JSON.stringify(existingData, null, 2), (err) => {
+        if (err) {
+          console.error("Error writing to file:", err);
+        } else {
+          console.log("Data updated in data.json");
+        }
+      });
+    } else {
+      console.log("No new data to update");
+    }
+  });
+}
+
 const url = "https://api.thaistock2d.com/live";
+const historyUrl = "https://api.thaistock2d.com/history";
 fetchData(url);
+fetchHistoryData(historyUrl);
 setInterval(() => fetchData(url), 60000);
+setInterval(() => fetchHistoryData(historyUrl), 60000);
 
 app.get("/", (req, res) => {
   const filePath = "data.json";
@@ -60,12 +108,12 @@ app.get("/", (req, res) => {
       console.error("Error reading file:", err);
       return;
     }
-        try {
-            const stockDatas = JSON.parse(jsonData);
-            res.render(__dirname + '/views/index.ejs', { stockDatas });
-        } catch (parseError) {
-            return res.status(500).send('Error parsing JSON data');
-        }
+    try {
+      const stockDatas = JSON.parse(jsonData);
+      res.render(__dirname + "/views/index.ejs", { stockDatas });
+    } catch (parseError) {
+      return res.status(500).send("Error parsing JSON data");
+    }
   });
 });
 
