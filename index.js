@@ -70,8 +70,6 @@ function updateHistorysFile(newDataArray) {
     if (data) {
       existingData = JSON.parse(data);
     }
-    console.log(newDataArray);
-
     const newDataToAdd = newDataArray.filter(
       (newItem) =>
         !existingData.some(
@@ -96,6 +94,7 @@ function updateHistorysFile(newDataArray) {
 
 const url = "https://api.thaistock2d.com/live";
 const historyUrl = "https://api.thaistock2d.com/history";
+
 fetchData(url);
 fetchHistoryData(historyUrl);
 setInterval(() => fetchData(url), 60000);
@@ -111,6 +110,24 @@ app.get("/", (req, res) => {
     try {
       const stockDatas = JSON.parse(jsonData);
       res.render(__dirname + "/views/index.ejs", { stockDatas });
+    } catch (parseError) {
+      return res.status(500).send("Error parsing JSON data");
+    }
+  });
+});
+
+app.get("/history", (req, res) => {
+  const filePath = "history.json";
+  fs.readFile(filePath, "utf8", (err, jsonData) => {
+    if (err && err.code !== "ENOENT") {
+      console.error("Error reading file:", err);
+      return;
+    }
+    try {
+      const historyDatas = JSON.parse(jsonData);
+      console.log(historyDatas);
+
+      res.render(__dirname + "/views/history.ejs", { historyDatas });
     } catch (parseError) {
       return res.status(500).send("Error parsing JSON data");
     }
