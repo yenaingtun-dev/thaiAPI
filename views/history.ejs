@@ -19,7 +19,6 @@
                     <th>Open Time</th>
                     <th>2D</th>
                     <th>Stock Date</th>
-                    <th>Stock Datetime</th>
                     <th>History ID</th>
                 </tr>
             </thead>
@@ -27,7 +26,7 @@
                 <% historyDatas.forEach(function(historyData) { %>
                     <tr>
                         <td>
-                            <%= historyData.set %>
+                            <%= historyDatas %>
                         </td>
                         <td>
                             <%= historyData.value %>
@@ -39,10 +38,7 @@
                             <%= historyData.twod %>
                         </td>
                         <td>
-                            <%= historyData.stock_date %>
-                        </td>
-                        <td>
-                            <%= historyData.stock_datetime %>
+                            <%= historyData.date %>
                         </td>
                         <td>
                             <%= historyData.history_id %>
