@@ -9,17 +9,26 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <header class="container my-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/history">History</a>
+            </li>
+        </ul>
+    </header>
+    <div class="container">
         <h2>Stock Data</h2>
         <table id="stockTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Stock Date</th>
+                    <th>Open Time</th>
                     <th>SET</th>
                     <th>Value</th>
-                    <th>Open Time</th>
                     <th>2D</th>
-                    <th>Stock Date</th>
-                    <th>Stock Datetime</th>
                     <th>History ID</th>
                 </tr>
             </thead>
@@ -27,22 +36,19 @@
                 <% stockDatas.forEach(function(stockData) { %>
                     <tr>
                         <td>
+                            <%= stockData.stock_date %>
+                        </td>
+                        <td>
+                            <%= stockData.open_time %>
+                        </td>
+                        <td>
                             <%= stockData.set %>
                         </td>
                         <td>
                             <%= stockData.value %>
                         </td>
                         <td>
-                            <%= stockData.open_time %>
-                        </td>
-                        <td>
                             <%= stockData.twod %>
-                        </td>
-                        <td>
-                            <%= stockData.stock_date %>
-                        </td>
-                        <td>
-                            <%= stockData.stock_datetime %>
                         </td>
                         <td>
                             <%= stockData.history_id %>
@@ -57,13 +63,8 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#stockTable").DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                "order": [[5, 'desc']]
-            });
+        new DataTable('#stockTable', {
+            order: [[5, 'desc']]
         });
     </script>
 </body>

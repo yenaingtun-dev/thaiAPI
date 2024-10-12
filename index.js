@@ -125,8 +125,7 @@ app.get("/history", (req, res) => {
     }
     try {
       const historyDatas = JSON.parse(jsonData);
-      console.log(historyDatas);
-
+      // console.log(historyDatas);
       res.render(__dirname + "/views/history.ejs", { historyDatas });
     } catch (parseError) {
       return res.status(500).send("Error parsing JSON data");
