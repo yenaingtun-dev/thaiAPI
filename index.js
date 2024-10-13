@@ -133,6 +133,18 @@ app.get("/history", (req, res) => {
   });
 });
 
+app.get('/date-history', async (req, res) => {
+    const selectedDate = req.query.date;
+    try {
+        const response = await axios.get(`https://api.thaistock2d.com/history?date=${selectedDate}`);
+        const historyDatas = response.data;
+        res.render('date-history', { historyDatas, selectedDate });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.send('Error fetching data');
+    }
+});
+
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
