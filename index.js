@@ -116,21 +116,23 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/history", (req, res) => {
-  const filePath = "history.json";
-  fs.readFile(filePath, "utf8", (err, jsonData) => {
-    if (err && err.code !== "ENOENT") {
-      console.error("Error reading file:", err);
-      return;
-    }
+app.get("/history", async (req, res) => {
+  // const filePath = "history.json";
+  // fs.readFile(filePath, "utf8", (err, jsonData) => {
+    // if (err && err.code !== "ENOENT") {
+    //   console.error("Error reading file:", err);
+    //   return;
+    // }
+      console.log(res);
     try {
-      const historyDatas = JSON.parse(jsonData);
-      // console.log(historyDatas);
+        const response = await axios.get(`https://api.thaistock2d.com/history`);
+      // const historyDatas = JSON.parse(jsonData);
+      const historyDatas =  response.data;
       res.render(__dirname + "/views/history.ejs", { historyDatas });
     } catch (parseError) {
       return res.status(500).send("Error parsing JSON data");
     }
-  });
+  // });
 });
 
 app.get('/date-history', async (req, res) => {
