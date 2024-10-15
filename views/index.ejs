@@ -33,7 +33,27 @@
                 </tr>
             </thead>
             <tbody>
-                <% stockDatas.forEach(function(stockData) { %>
+                <tr>
+                        <td>
+                            <%= stockDataLive.time %>
+                        </td>
+                        <td>
+                            <%= stockDataLive.set %>
+                        </td>
+                        <td>
+                            <%= stockDataLive.value %>
+                        </td>
+                        <td>
+                            <%= stockDataLive.twod %>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                </tr>
+                <% stockDataResults.forEach(function(stockData) { %>
                     <tr>
                         <td>
                             <%= stockData.stock_date %>

@@ -100,39 +100,32 @@ fetchHistoryData(historyUrl);
 setInterval(() => fetchData(url), 60000);
 setInterval(() => fetchHistoryData(historyUrl), 60000);
 
-app.get("/", (req, res) => {
-  const filePath = "data.json";
-  fs.readFile(filePath, "utf8", (err, jsonData) => {
-    if (err && err.code !== "ENOENT") {
-      console.error("Error reading file:", err);
-      return;
-    }
-    try {
-      const stockDatas = JSON.parse(jsonData);
-      res.render(__dirname + "/views/index.ejs", { stockDatas });
-    } catch (parseError) {
-      return res.status(500).send("Error parsing JSON data");
-    }
-  });
-});
-
-app.get("/history", async (req, res) => {
-  // const filePath = "history.json";
+app.get("/", async (req, res) => {
+  // const filePath = "data.json";
   // fs.readFile(filePath, "utf8", (err, jsonData) => {
     // if (err && err.code !== "ENOENT") {
     //   console.error("Error reading file:", err);
     //   return;
     // }
-      console.log(res);
     try {
-        const response = await axios.get(`https://api.thaistock2d.com/history`);
-      // const historyDatas = JSON.parse(jsonData);
+      const response = await axios.get(`https://api.thaistock2d.com/live`);
+      const stockDataResults =  response.data.result;
+      const stockDataLive =  response.data.live;
+      res.render(__dirname + "/views/index.ejs", { stockDataLive, stockDataResults  });
+    } catch (parseError) {
+      return res.status(500).send("Error parsing JSON data");
+    }
+  // });
+});
+
+app.get("/history", async (req, res) => {
+    try {
+      const response = await axios.get(`https://api.thaistock2d.com/history`);
       const historyDatas =  response.data;
       res.render(__dirname + "/views/history.ejs", { historyDatas });
     } catch (parseError) {
       return res.status(500).send("Error parsing JSON data");
     }
-  // });
 });
 
 app.get('/date-history', async (req, res) => {
