@@ -2,4 +2,4 @@
 
 - clone the repository
 - npm install
-- npm start 
+- npm start  
