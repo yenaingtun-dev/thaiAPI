@@ -4,13 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stock Data - History</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
   </head>
 
-  <body >
-    <header class="container d-flex align-items-center justify-content-between my-3">
+  <body>
+    <header
+      class="container d-flex align-items-center justify-content-between my-3"
+    >
       <ul class="nav nav-pills">
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
@@ -23,7 +34,7 @@
       </ul>
       <form id="dateForm" action="/date-history" method="GET">
         <label for="date">Choose a date:</label>
-        <input type="text" id="date" name="date" placeholder="Select a date">
+        <input type="text" id="date" name="date" placeholder="Select a date" />
         <button type="submit" class="btn btn-sm btn-primary">Submit</button>
       </form>
     </header>
@@ -39,29 +50,21 @@
             <th>TwoD</th>
           </tr>
         </thead>
-        <tbody>
-          <% historyDatas.forEach(function(historyData) { %>
-            <% historyData.child.forEach(function(childData) { %>
-                <tr>
-                    <td>
-                        <%= historyData.date %>
-                    </td>
-                    <td>
-                        <%= childData.time %>
-                    </td>
-                    <td>
-                        <%= childData.set %>
-                    </td>
-                    <td>
-                        <%= childData.value %>
-                    </td>
-                    <td>
-                        <%= childData.twod %>
-                    </td>
-                </tr>
-            <% }) %>
-          <% }); %>
+        <tbody id="stockDataBody">
+          <!-- Rows will be dynamically inserted here -->
         </tbody>
+        <!-- <tbody>
+          <% historyDatas.forEach(function(historyData) { %> <%
+          historyData.child.forEach(function(childData) { %>
+          <tr>
+            <td><%= historyData.date %></td>
+            <td><%= childData.time %></td>
+            <td><%= childData.set %></td>
+            <td><%= childData.value %></td>
+            <td><%= childData.twod %></td>
+          </tr>
+          <% }) %> <% }); %>
+        </tbody> -->
       </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -70,15 +73,56 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script>
-        new DataTable('#historyTable', {
-            order: [[0, 'desc']]
+      // new DataTable("#historyTable", {
+      //   order: [[0, "desc"]],
+      // });
+
+      $(function () {
+        $("#date").datepicker({
+          dateFormat: "yy-mm-dd",
         });
-        $(function () {
-            // Initialize the datepicker
-            $("#date").datepicker({
-              dateFormat: "yy-mm-dd"  // Set the format to match the API's expected date format (YYYY-MM-DD)
+      });
+
+      async function fetchStockData() {
+        try {
+          const response = await fetch("/history_live");
+          const data = await response.json();
+          const tableBody = document.getElementById("stockDataBody");
+          tableBody.innerHTML = "";
+
+          data.historyDatas.forEach(function (historyData) {
+            historyData.child.forEach(function (childData) {
+              const row = document.createElement("tr");
+
+              const dateCell = document.createElement("td");
+              const timeCell = document.createElement("td");
+              const setCell = document.createElement("td");
+              const valueCell = document.createElement("td");
+              const twodCell = document.createElement("td");
+
+              dateCell.textContent = historyData.date;
+              timeCell.textContent = childData.time;
+              setCell.textContent = childData.set;
+              valueCell.textContent = childData.value;
+              twodCell.textContent = childData.twod;
+
+              row.appendChild(dateCell);
+              row.appendChild(timeCell);
+              row.appendChild(setCell);
+              row.appendChild(valueCell);
+              row.appendChild(twodCell);
+
+              tableBody.appendChild(row);
             });
           });
+        } catch (error) {
+          console.error("Error fetching stock data:", error);
+        }
+      }
+
+      setInterval(fetchStockData, 5000);
+
+      fetchStockData();
     </script>
   </body>
 </html>
