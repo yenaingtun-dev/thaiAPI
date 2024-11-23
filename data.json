@@ -12202,5 +12202,77 @@
     "stock_date": "2024-11-18",
     "stock_datetime": "2024-11-18 16:30:00",
     "history_id": "1741543"
+  },
+  {
+    "set": "1,444.12",
+    "value": "19,306.60",
+    "open_time": "11:00:00",
+    "twod": "26",
+    "stock_date": "2024-11-21",
+    "stock_datetime": "2024-11-21 11:00:01",
+    "history_id": "1746953"
+  },
+  {
+    "set": "1,443.79",
+    "value": "24,221.65",
+    "open_time": "12:01:00",
+    "twod": "91",
+    "stock_date": "2024-11-21",
+    "stock_datetime": "2024-11-21 12:01:00",
+    "history_id": "1747369"
+  },
+  {
+    "set": "1,439.86",
+    "value": "31,494.42",
+    "open_time": "15:00:00",
+    "twod": "64",
+    "stock_date": "2024-11-21",
+    "stock_datetime": "2024-11-21 15:00:02",
+    "history_id": "1748268"
+  },
+  {
+    "set": "1,440.46",
+    "value": "41,514.94",
+    "open_time": "16:30:00",
+    "twod": "64",
+    "stock_date": "2024-11-21",
+    "stock_datetime": "2024-11-21 16:30:01",
+    "history_id": "1748718"
+  },
+  {
+    "set": "1436.74",
+    "value": "15841.84",
+    "open_time": "11:00:00",
+    "twod": "41",
+    "stock_date": "2024-11-22",
+    "stock_datetime": "2024-11-22 11:00:02",
+    "history_id": "1749326"
+  },
+  {
+    "set": "1448.91",
+    "value": "26863.52",
+    "open_time": "12:01:00",
+    "twod": "13",
+    "stock_date": "2024-11-22",
+    "stock_datetime": "2024-11-22 12:01:00",
+    "history_id": "1749720"
+  },
+  {
+    "set": "1446.61",
+    "value": "35499.65",
+    "open_time": "15:00:00",
+    "twod": "19",
+    "stock_date": "2024-11-22",
+    "stock_datetime": "2024-11-22 15:00:00",
+    "history_id": "1750649"
+  },
+  {
+    "set": "1446.3",
+    "value": "45654.73",
+    "open_time": "16:30:00",
+    "twod": "04",
+    "stock_date": "2024-11-22",
+    "stock_datetime": "2024-11-22 16:30:00",
+    "history_id": "1751075"
   }
 ]
